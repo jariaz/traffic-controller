@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-import defaultRouter from './router' // router
+
+import defaultRouter from './router'
 import siteARouter from './router/sitea'
 import siteBRouter from './router/siteb'
-import defaultStore from './store' // store
+
+import defaultStore from './store'
+import siteAStore from './store/sitea'
+import siteBStore from './store/siteb'
 
 Vue.config.productionTip = false
 
@@ -22,8 +26,15 @@ const router = () => {
 }
 
 const store = () => {
-  // let stores;
-  return defaultStore
+  let stores;
+  if (domain === 'local.site-a.com') {
+    stores = siteAStore;
+  } else if (domain === 'local.site-b.com') {
+    stores = siteBStore;
+  } else {
+    stores = defaultStore;
+  }
+  return stores
 }
 
 new Vue({
